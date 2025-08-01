@@ -148,40 +148,40 @@ const BirthdayPage = () => {
   //   return () => clearInterval(iv);
   // }, [birthday]);
 
-  useEffect(() => {
-    const update = () => {
-      const now = new Date();
-
-      // Countdown to today's midnight (00:00 next day)
-      const target = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate() + 1,
-        0,
-        0,
-        0,
-        0
-      );
-      let diff = target - now;
-      if (diff < 0) diff = 0;
-
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-      setCountdown(`${hours}h ${minutes}m ${seconds}s`);
-
-      // Determine if it's exactly midnight (within the first second)
-      setIsMagicTime(
-        now.getHours() === 0 && now.getMinutes() === 0 && now.getSeconds() === 0
-      );
-    };
-
-    update();
-    const iv = setInterval(update, 1000);
-    return () => clearInterval(iv);
-  }, [birthday]);
-
   // useEffect(() => {
+  //   const update = () => {
+  //     const now = new Date();
+
+  //     // Countdown to today's midnight (00:00 next day)
+  //     const target = new Date(
+  //       now.getFullYear(),
+  //       now.getMonth(),
+  //       now.getDate() + 1,
+  //       0,
+  //       0,
+  //       0,
+  //       0
+  //     );
+  //     let diff = target - now;
+  //     if (diff < 0) diff = 0;
+
+  //     const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  //     const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  //     const seconds = Math.floor((diff / 1000) % 60);
+  //     setCountdown(`${hours}h ${minutes}m ${seconds}s`);
+
+  //     // Determine if it's exactly midnight (within the first second)
+  //     setIsMagicTime(
+  //       now.getHours() === 0 && now.getMinutes() === 0 && now.getSeconds() === 0
+  //     );
+  //   };
+
+  //   update();
+  //   const iv = setInterval(update, 1000);
+  //   return () => clearInterval(iv);
+  // }, [birthday]);
+
+  useEffect(() => {
   //   const start = Date.now();
   //   const target = start + 10_000; // 10 seconds from now
 
