@@ -182,27 +182,27 @@ const BirthdayPage = () => {
   // }, [birthday]);
 
   useEffect(() => {
-  //   const start = Date.now();
-  //   const target = start + 10_000; // 10 seconds from now
+    const start = Date.now();
+    const target = start + 10_000; // 10 seconds from now
 
-  //   const update = () => {
-  //     const now = Date.now();
-  //     let diff = target - now;
-  //     if (diff <= 0) {
-  //       diff = 0;
-  //       setIsMagicTime(true);
-  //     }
-  //     //Show with one decimal place in seconds
-  //     setCountdown(`${(diff / 1000).toFixed(1)}s`);
-  //     if (diff === 0) {
-  //       clearInterval(iv);
-  //     }
-  //   };
+    const update = () => {
+      const now = Date.now();
+      let diff = target - now;
+      if (diff <= 0) {
+        diff = 0;
+        setIsMagicTime(true);
+      }
+      //Show with one decimal place in seconds
+      setCountdown(`${(diff / 1000).toFixed(1)}s`);
+      if (diff === 0) {
+        clearInterval(iv);
+      }
+    };
 
-  //   update();
-  //   const iv = setInterval(update, 50); // granular for smooth countdown
-  //   return () => clearInterval(iv);
-  // }, [birthday]);
+    update();
+    const iv = setInterval(update, 50); // granular for smooth countdown
+    return () => clearInterval(iv);
+  }, [birthday]);
 
   const toggleMusic = () => {
     if (!audioRef.current) return;
