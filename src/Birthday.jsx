@@ -118,34 +118,91 @@ const BirthdayPage = () => {
   const [birthday, setBirthday] = useState("2025-02-08");
   const [countdown, setCountdown] = useState("");
   const [showCard, setShowCard] = useState(false);
+  const [isMagicTime, setIsMagicTime] = useState(false);
+
+  // useEffect(() => {
+  //   const update = () => {
+  //     const now = new Date();
+  //     const target = new Date(
+  //       now.getFullYear(),
+  //       now.getMonth(),
+  //       now.getDate(),
+  //       23,
+  //       59,
+  //       59,
+  //       999 // Today at 11:59:59 PM
+  //     );
+
+  //     let diff = target - now;
+  //     if (diff < 0) diff = 0;
+
+  //     const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  //     const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  //     const seconds = Math.floor((diff / 1000) % 60);
+
+  //     setCountdown(`${hours}h ${minutes}m ${seconds}s`);
+  //   };
+
+  //   update();
+  //   const iv = setInterval(update, 1000);
+  //   return () => clearInterval(iv);
+  // }, [birthday]);
 
   useEffect(() => {
     const update = () => {
       const now = new Date();
+
+      // Countdown to today's midnight (00:00 next day)
       const target = new Date(
         now.getFullYear(),
         now.getMonth(),
-        now.getDate(),
-        23,
-        59,
-        59,
-        999 // Today at 11:59:59 PM
+        now.getDate() + 1,
+        0,
+        0,
+        0,
+        0
       );
-
       let diff = target - now;
       if (diff < 0) diff = 0;
 
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
-
       setCountdown(`${hours}h ${minutes}m ${seconds}s`);
+
+      // Determine if it's exactly midnight (within the first second)
+      setIsMagicTime(
+        now.getHours() === 0 && now.getMinutes() === 0 && now.getSeconds() === 0
+      );
     };
 
     update();
     const iv = setInterval(update, 1000);
     return () => clearInterval(iv);
   }, [birthday]);
+
+  // useEffect(() => {
+  //   const start = Date.now();
+  //   const target = start + 10_000; // 10 seconds from now
+
+  //   const update = () => {
+  //     const now = Date.now();
+  //     let diff = target - now;
+  //     if (diff <= 0) {
+  //       diff = 0;
+  //       setIsMagicTime(true);
+  //     }
+  //     //Show with one decimal place in seconds
+  //     setCountdown(`${(diff / 1000).toFixed(1)}s`);
+  //     if (diff === 0) {
+  //       clearInterval(iv);
+  //     }
+  //   };
+
+  //   update();
+  //   const iv = setInterval(update, 50); // granular for smooth countdown
+  //   return () => clearInterval(iv);
+  // }, [birthday]);
 
   const toggleMusic = () => {
     if (!audioRef.current) return;
@@ -475,25 +532,34 @@ const BirthdayPage = () => {
             <div style={{ textAlign: "center" }}>
               {!showMessage ? (
                 <>
-                  <motion.h1
-                    layout
-                    initial={{ y: -40, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.2, type: "spring", stiffness: 140 }}
-                  >
-                    Happy Birthday, {name}! 🎉
-                  </motion.h1>
-                  <motion.div
-                    className="subtitle"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.45 }}
-                  >
-                    Countdown to your special day:
-                    <div className="countdown">{countdown}</div>
-                  </motion.div>
+                  {isMagicTime ? (
+                    <motion.h1
+                      layout
+                      initial={{ y: -40, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{
+                        delay: 0.2,
+                        type: "spring",
+                        stiffness: 140,
+                      }}
+                    >
+                      Happy Birthday, {name}! 🎉
+                    </motion.h1>
+                  ) : null}
 
-                  {!showMessage ? (
+                  {!isMagicTime ? (
+                    <motion.div
+                      className="subtitle"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.45 }}
+                    >
+                      Countdown to your special day:
+                      <div className="countdown">{countdown}</div>
+                    </motion.div>
+                  ) : null}
+
+                  {isMagicTime ? (
                     <div style={{ margin: "1.5rem 0" }}>
                       <Button
                         onClick={() => {
@@ -547,8 +613,6 @@ const BirthdayPage = () => {
             </div>
           </CardContent>
         </motion.div>
-
-         
       </div>
 
       <AnimatePresence>
