@@ -473,50 +473,40 @@ const BirthdayPage = () => {
         >
           <CardContent>
             <div style={{ textAlign: "center" }}>
-              <motion.h1
-                layout
-                initial={{ y: -40, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.2, type: "spring", stiffness: 140 }}
-              >
-                Happy Birthday, {name}! 🎉
-              </motion.h1>
-              <motion.div
-                className="subtitle"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.45 }}
-              >
-                Countdown to your special day:
-                <div className="countdown">{countdown}</div>
-              </motion.div>
-              {/* {showMessage ? <div className="inputs">
-                <input
-                  aria-label="Sister's name"
-                  placeholder="Enter her name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-                <input
-                  aria-label="Birthday date"
-                  type="text"
-                  value={birthday}
-                  onChange={(e) => setBirthday(e.target.value)}
-                />
-              </div> : null} */}
-
               {!showMessage ? (
-                <div style={{ margin: "1.5rem 0" }}>
-                  <Button
-                    onClick={() => {
-                      toggleMusic();
-                      launchSurprise();
-                    }}
-                    style={{ fontSize: "1rem" }}
+                <>
+                  <motion.h1
+                    layout
+                    initial={{ y: -40, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.2, type: "spring", stiffness: 140 }}
                   >
-                    Click Me and See Magic!
-                  </Button>
-                </div>
+                    Happy Birthday, {name}! 🎉
+                  </motion.h1>
+                  <motion.div
+                    className="subtitle"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.45 }}
+                  >
+                    Countdown to your special day:
+                    <div className="countdown">{countdown}</div>
+                  </motion.div>
+
+                  {!showMessage ? (
+                    <div style={{ margin: "1.5rem 0" }}>
+                      <Button
+                        onClick={() => {
+                          toggleMusic();
+                          launchSurprise();
+                        }}
+                        style={{ fontSize: "1rem" }}
+                      >
+                        Click Me and See Magic!
+                      </Button>
+                    </div>
+                  ) : null}
+                </>
               ) : null}
 
               <AnimatePresence>
@@ -530,7 +520,7 @@ const BirthdayPage = () => {
                     className="surprise-box"
                   >
                     <h2 style={{ margin: 0, fontSize: "1.9rem" }}>
-                      To my beloved {name},
+                      To my beloved Sister {name},
                     </h2>
                     <p style={{ marginTop: "0.5rem", lineHeight: 1.4 }}>
                       Wishing you a day filled with laughter, love, and magical
