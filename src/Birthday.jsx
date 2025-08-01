@@ -548,37 +548,7 @@ const BirthdayPage = () => {
           </CardContent>
         </motion.div>
 
-        {showMessage ? (
-          <div style={{ display: "flex", columnGap: "15px" }}>
-            <FloatingPhoto
-              src={img1}
-              alt="happy memory"
-              style={{
-                top: "10%",
-                transform: "rotate(-5deg)",
-              }}
-              className="floating"
-            />
-            <FloatingPhoto
-              src={img}
-              alt="sister"
-              style={{
-                bottom: "15%",
-                transform: "rotate(8deg)",
-              }}
-              className="floating"
-            />
-            <FloatingPhoto
-              src={img3}
-              alt="celebration"
-              style={{
-                top: "20%",
-                transform: "rotate(-10deg)",
-              }}
-              className="floating"
-            />
-          </div>
-        ) : null}
+         
       </div>
 
       <AnimatePresence>
